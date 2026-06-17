@@ -1,0 +1,337 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+{% if messages %}
+
+    {% for message in messages %}
+
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show">
+
+            {{ message }}
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    {% endfor %}
+
+{% endif %}
+    <h2 class="mb-4">
+        My Profile
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h5>Settings</h5>
+
+                    <hr>
+
+                    <a href="#profile" class="list-group-item">
+                        👤 Profile
+                    </a>
+
+                    <a href="#security" class="list-group-item">
+                        🔒 Security
+                    </a>
+
+                    <a href="#appearance" class="list-group-item">
+                        🎨 Appearance
+                    </a>
+
+                    <a href="#account" class="list-group-item">
+                        ⚙ Account
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-9">
+
+            <form method="POST" enctype="multipart/form-data">
+
+                {% csrf_token %}
+
+                <!-- PROFILE -->
+
+                <div class="card shadow border-0 mb-4" id="profile">
+
+                    <div class="card-body">
+
+                        <h4>Profile</h4>
+
+                        <hr>
+
+                        <div class="text-center mb-4">
+
+                            {% if profile.profile_picture %}
+
+                                <img
+                                    src="{{ profile.profile_picture.url }}"
+                                    width="130"
+                                    height="130"
+                                    style="border-radius:50%;object-fit:cover;">
+
+                            {% else %}
+
+                                <img
+                                    src="https://ui-avatars.com/api/?name={{ request.user.username }}"
+                                    width="130"
+                                    height="130"
+                                    style="border-radius:50%;">
+
+                            {% endif %}
+
+                            <br><br>
+
+                            <input
+                                type="file"
+                                name="profile_picture"
+                                class="form-control">
+
+                        </div><br>
+
+                         <button
+                          type="submit"
+                          name="delete_photo"
+                          value="1"
+                          class="btn btn-danger">
+
+                               Delete Photo
+
+                            </button>  
+
+                        <div class="mb-3">
+
+                            <label>Full Name</label>
+
+                            <input
+                                type="text"
+                                name="full_name"
+                                value="{{ profile.full_name }}"
+                                class="form-control">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>Username</label>
+
+                            <input
+                                type="text"
+                                value="{{ request.user.username }}"
+                                class="form-control"
+                                readonly>
+
+                        </div>
+                                                <div class="mb-3">
+
+    <label>Email</label>
+
+    <input
+        type="email"
+        name="email"
+        value="{{ request.user.email }}"
+        class="form-control">
+
+</div>
+        
+
+                        <div class="mb-3">
+
+                            <label>Phone Number</label>
+
+                            <input
+                                type="text"
+                                name="phone_number"
+                                value="{{ profile.phone_number }}"
+                                class="form-control">
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            <label>Role</label>
+
+                            <input
+                                type="text"
+                                name="role"
+                                value="{{ profile.role }}"
+                                class="form-control">
+
+                        </div>
+            </div>
+
+                </div>
+
+                <!-- SECURITY -->
+
+               <div class="card shadow border-0 mb-4" id="security">
+
+    <div class="card-body">
+
+        <h4>Security</h4>
+
+        <hr>
+
+        <div class="mb-3">
+
+            <label>
+                Current Password
+            </label>
+
+            <input
+                type="password"
+                name="current_password"
+                class="form-control">
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>
+                New Password
+            </label>
+
+            <input
+                type="password"
+                name="new_password"
+                class="form-control">
+
+        </div>
+
+        <div class="mb-3">
+
+            <label>
+                Confirm Password
+            </label>
+
+            <input
+                type="password"
+                name="confirm_password"
+                class="form-control">
+
+        </div>
+
+    </div>
+
+</div>
+
+                <!-- APPEARANCE -->
+
+                <div class="card shadow border-0 mb-4" id="appearance">
+
+                    <div class="card-body">
+
+                        <h4>Appearance</h4>
+
+                        <hr>
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="theme"
+                                value="light"
+                                {% if profile.theme == 'light' %}checked{% endif %}>
+
+                            <label class="form-check-label">
+
+                                Light Theme
+
+                            </label>
+
+                        </div>
+
+                        <div class="form-check">
+
+                            <input
+                                class="form-check-input"
+                                type="radio"
+                                name="theme"
+                                value="dark"
+                                {% if profile.theme == 'dark' %}checked{% endif %}>
+
+                            <label class="form-check-label">
+
+                                Dark Theme
+
+                            </label>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-success mb-4">
+
+                    Save Changes
+
+                </button>
+
+            </form>
+
+
+            <!-- ACCOUNT -->
+
+            <div class="card shadow border-0" id="account">
+
+                <div class="card-body">
+
+                    <h4>Account</h4>
+
+                    <hr>
+
+                    <p>
+
+                        <strong>Username:</strong>
+
+                        {{ request.user.username }}
+
+                    </p>
+
+                    <p>
+
+                        <strong>Email:</strong>
+
+                        {{ request.user.email }}
+
+                    </p>
+
+                    <a
+                        href="{% url 'logout' %}"
+                        class="btn btn-danger">
+
+                        Logout
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

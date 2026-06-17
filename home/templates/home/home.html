@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <!-- Hero Section -->
+
+    <div class="card-custom mb-5">
+
+        <div class="row align-items-center">
+
+            <div class="col-md-7">
+
+                <h1 class="display-4 fw-bold">
+                    TaskFlow
+                </h1>
+
+                <p class="lead mt-3">
+                    Manage Tasks Smarter. Stay Organized. Improve Productivity.
+                </p>
+
+                <p>
+                    Track projects, manage deadlines, organize teams,
+                    generate reports and get more productivity insights.
+                </p>
+
+                <div class="mt-4">
+
+                    <a href="/accounts/login/"
+                       class="btn btn-dark btn-lg me-2">
+                        Login
+                    </a>
+
+                    <a href="/accounts/register/"
+                       class="btn btn-outline-dark btn-lg">
+                        Register
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="col-md-5 text-center">
+
+                <h2>
+                    Productivity Dashboard
+                </h2>
+
+                <div class="card-custom mt-3">
+
+                    <h4>Today's Progress</h4>
+
+                    <p>Tasks Completed: </p>
+
+                    <p>Pending Tasks: </p>
+
+                    <p>Team Members: </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Features -->
+
+    <h2 class="mb-4">
+        Features
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card-custom">
+
+                <h4>Task Management</h4>
+
+                <p>
+                    Create, edit, update and track tasks efficiently.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card-custom">
+
+                <h4>To-Do Lists</h4>
+
+                <p>
+                    Organize daily activities and priorities.
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card-custom">
+
+                <h4>Reports</h4>
+
+                <p>
+                    Monitor productivity and project progress.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+    <!-- About -->
+
+    <div class="card-custom mt-5">
+
+        <h2>
+            About TaskFlow
+        </h2>
+
+        <p class="mt-3">
+
+            TaskFlow is a modern task management platform designed
+            to help individuals and teams manage projects, monitor
+            progress, and improve productivity through more
+            insights and analytics.
+
+        </p>
+
+    </div>
+
+</div>
+
+{% endblock %}

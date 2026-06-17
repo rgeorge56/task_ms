@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">
+        Reports & Analytics
+    </h2>
+
+    <div class="row">
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <h5>Total Tasks</h5>
+
+                    <h1 class="display-4">
+                        {{ total_tasks }}
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <h5>Completed Tasks</h5>
+
+                    <h1 class="display-4 text-success">
+                        {{ completed_tasks }}
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body text-center">
+
+                    <h5>Pending Tasks</h5>
+
+                    <h1 class="display-4 text-warning">
+                        {{ pending_tasks }}
+                    </h1>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <div class="card shadow border-0">
+
+        <div class="card-header">
+
+            Project Summary
+
+        </div>
+
+        <div class="card-body">
+
+            <p>
+                <strong>Total Tasks:</strong>
+                {{ total_tasks }}
+            </p>
+
+            <p>
+                <strong>Completed Tasks:</strong>
+                {{ completed_tasks }}
+            </p>
+
+            <p>
+                <strong>Pending Tasks:</strong>
+                {{ pending_tasks }}
+            </p>
+
+            {% if total_tasks > 0 %}
+
+            <div class="progress mt-3">
+
+                <div
+                    class="progress-bar bg-success"
+                    role="progressbar"
+                    style="width:{% widthratio completed_tasks total_tasks 100 %}%">
+
+                    {% widthratio completed_tasks total_tasks 100 %}%
+
+                </div>
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

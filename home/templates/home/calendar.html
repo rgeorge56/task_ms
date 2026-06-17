@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                Calendar
+            </h2>
+
+            <p class="text-muted">
+                Manage your tasks and deadlines
+            </p>
+
+        </div>
+
+        <a href="{% url 'addtask' %}"
+           class="btn btn-primary">
+
+            + New Task
+
+        </a>
+
+    </div>
+
+    <div class="card calendar-card">
+
+        <div class="card-body">
+
+            <div id="calendar"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.css" rel="stylesheet">
+
+<style>
+
+.calendar-card{
+
+    border:none;
+
+    border-radius:20px;
+
+    box-shadow:0 5px 25px rgba(0,0,0,0.08);
+
+    background:white;
+
+}
+
+.fc{
+
+    padding:15px;
+
+}
+
+.fc-toolbar-title{
+
+    font-size:26px !important;
+
+    font-weight:700;
+
+    color:#111827;
+
+}
+
+.fc-button{
+
+    background:#EEF2FF !important;
+
+    border:none !important;
+
+    color:#4F46E5 !important;
+
+    border-radius:10px !important;
+
+    padding:8px 16px !important;
+
+}
+
+.fc-button:hover{
+
+    background:#E0E7FF !important;
+
+}
+
+.fc-daygrid-day:hover{
+
+    background:#F8FAFC;
+
+    cursor:pointer;
+
+}
+
+.fc-day-today{
+
+    background:#EEF2FF !important;
+
+}
+
+.fc-event{
+
+    background:#6366F1 !important;
+
+    border:none !important;
+
+    border-radius:8px !important;
+
+    padding:3px;
+
+}
+
+.fc-col-header-cell{
+
+    background:#F9FAFB;
+
+    padding:10px 0;
+
+}
+
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.11/index.global.min.js"></script>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function() {
+
+    var calendarEl =
+        document.getElementById('calendar');
+
+    var calendar =
+        new FullCalendar.Calendar(calendarEl, {
+
+        initialView:'dayGridMonth',
+
+        height:700,
+
+        selectable:true,
+
+        editable:true,
+
+        headerToolbar:{
+
+            left:'prev,next today',
+
+            center:'title',
+
+            right:'dayGridMonth,timeGridWeek,timeGridDay'
+
+        },
+
+        dateClick:function(info){
+
+            alert(
+                'Selected Date: ' +
+                info.dateStr
+            );
+
+        },
+
+        events:[
+
+            {% for task in tasks %}
+
+            {
+                title:'{{ task.title }}',
+                start:'{{ task.due_date|date:"Y-m-d" }}'
+            },
+
+            {% endfor %}
+
+        ]
+
+    });
+
+    calendar.render();
+
+});
+
+</script>
+
+{% endblock %}

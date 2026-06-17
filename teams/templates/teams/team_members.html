@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+
+    <div>
+
+        <h2>
+            {{ team.name }} Members
+        </h2>
+
+        <p class="text-muted">
+            Team Member Management
+        </p>
+
+    </div>
+
+    <a href="{% url 'team' %}"
+       class="btn btn-secondary">
+
+        Back To Teams
+
+    </a>
+
+</div>
+
+<div class="card shadow border-0">
+
+    <div class="card-body">
+
+        <h5>
+            Total Members: {{ members|length }}
+        </h5>
+
+        <hr>
+
+        <table class="table table-hover">
+
+            <thead>
+
+                <tr>
+
+                    <th>User</th>
+
+                    <th>Role</th>
+
+                    <th>Actions</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                {% for member in members %}
+
+                <tr>
+
+                    <td>
+                        {{ member.user.username }}
+                    </td>
+
+                    <td>
+                        {{ member.role }}
+                    </td>
+
+                    <td>
+
+                        {% if member.role != 'Leader' %}
+
+                        <a
+                            href="{% url 'removemember' member.id %}"
+                            class="btn btn-danger btn-sm">
+
+                            Remove
+
+                        </a>
+
+                        {% else %}
+
+                        <span class="badge bg-primary">
+                            Team Leader
+                        </span>
+
+                        {% endif %}
+
+                    </td>
+
+                </tr>
+
+                {% empty %}
+
+                <tr>
+
+                    <td colspan="3">
+
+                        No Members Found
+
+                    </td>
+
+                </tr>
+
+                {% endfor %}
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}
+

@@ -1,0 +1,188 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+
+        <div>
+
+            <h2 class="fw-bold">
+                Teams
+            </h2>
+
+            <p class="text-muted">
+                Manage your teams and members
+            </p>
+
+        </div>
+
+        <div>
+
+            <a href="{% url 'createteam' %}"
+               class="btn btn-primary">
+
+                + Create Team
+
+            </a>
+
+            <a href="{% url 'jointeam' %}"
+               class="btn btn-success">
+
+                Join Team
+
+            </a>
+
+        </div>
+
+    </div>
+
+    <div class="row">
+
+        {% for team in teams %}
+
+        <div class="col-md-6 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-body">
+
+                    <h4>
+                        {{ team.name }}
+                    </h4>
+
+                    <p class="text-muted">
+                        {{ team.description }}
+                    </p>
+
+                    <hr>
+
+                    <p>
+                        <strong>Leader:</strong>
+
+                        {{ team.leader.username }}
+
+                        <span class="badge bg-primary">
+                            Leader
+                        </span>
+                    </p>
+                    <p>
+    <strong>Members:</strong>
+    {{ team.member_count }}
+</p>
+
+                    <p>
+                        <strong>Team Code:</strong>
+
+                        {{ team.team_code }}
+
+                    </p>
+
+                    <p>
+                        <strong>Total Members:</strong>
+
+                        {{ team.teammember_set.count }}
+
+                    </p>
+
+                    <hr>
+
+                    <h6>
+                        Team Members
+                    </h6>
+
+                    <ul class="list-group mb-3">
+
+                        {% for member in team.teammember_set.all %}
+
+                        <li class="list-group-item d-flex justify-content-between">
+
+                            <span>
+                                {{ member.user.username }}
+                            </span>
+
+                            <span class="badge bg-secondary">
+
+                                {{ member.role }}
+
+                            </span>
+
+                        </li>
+
+                        {% empty %}
+
+                        <li class="list-group-item">
+
+                            No members yet
+
+                        </li>
+
+                        {% endfor %}
+
+                    </ul>
+
+                    <a
+     href="{% url 'invite' team.id %}"
+     class="btn btn-success btn-sm">
+
+     Invite Member
+
+</a>
+
+<a
+     href="{% url 'teammembers' team.id %}"
+     class="btn btn-info btn-sm">
+
+     Members
+
+</a>
+
+<a
+href="{% url 'editteam' team.id %}"
+class="btn btn-dark btn-sm">
+
+    Edit
+
+</a>
+
+<a
+href="{% url 'deleteteam' team.id %}"
+class="btn btn-danger btn-sm">
+
+    Delete
+
+</a>
+
+<button
+    class="btn btn-secondary btn-sm">
+
+    Copy Team Link
+
+</button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <div class="col-12">
+
+            <div class="alert alert-info">
+
+                No Teams Created Yet
+
+            </div>
+
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

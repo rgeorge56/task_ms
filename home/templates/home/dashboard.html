@@ -1,0 +1,205 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container-fluid">
+
+    <h2 class="mb-4">
+        Dashboard
+    </h2>
+
+    <div class="row g-4">
+
+        <div class="col-md-3">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h6>Total Tasks</h6>
+                    <h2>{{ total_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h6>Completed Tasks</h6>
+                    <h2>{{ completed_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h6>Pending Tasks</h6>
+                    <h2>{{ pending_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h6>High Priority</h6>
+                    <h2>{{ high_tasks }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card shadow border-0">
+                <div class="card-body">
+                    <h6>My Teams</h6>
+                    <h2>{{ team_count }}</h2>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br>
+
+    <div class="row">
+
+        <div class="col-md-8">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header">
+                    Recent Tasks
+                </div>
+
+                <div class="card-body">
+
+                    <table class="table">
+
+                        <thead>
+
+                            <tr>
+                                <th>Title</th>
+                                <th>Priority</th>
+                                <th>Status</th>
+                                <th>Due Date</th>
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            {% for task in tasks %}
+
+                            <tr>
+
+                                <td>{{ task.title }}</td>
+
+                                <td>{{ task.priority }}</td>
+
+                                <td>{{ task.status }}</td>
+
+                                <td>{{ task.due_date }}</td>
+
+                            </tr>
+
+                            {% empty %}
+
+                            <tr>
+
+                                <td colspan="4">
+                                    No Tasks Found
+                                </td>
+
+                            </tr>
+
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-md-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header">
+                    Quick Actions
+                </div>
+
+                <div class="card-body">
+
+                    <a href="{% url 'addtask' %}"
+                       class="btn btn-primary w-100 mb-3">
+
+                        Create New Task
+
+                    </a>
+
+                    <a href="{% url 'todo' %}"
+                       class="btn btn-success w-100 mb-3">
+
+                        View To-Do List
+
+                    </a>
+
+                    <a href="{% url 'reports' %}"
+                       class="btn btn-dark w-100">
+
+                        View Reports
+
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="card shadow border-0 mt-4">
+
+                <div class="card-header">
+                    Recent Activity
+                </div>
+
+                <div class="card-body">
+
+                    {% for task in tasks %}
+
+                        <div class="mb-3">
+
+                            <strong>
+                                {{ task.title }}
+                            </strong>
+
+                            <br>
+
+                            <small class="text-muted">
+
+                                Status:
+                                {{ task.status }}
+
+                            </small>
+
+                        </div>
+
+                    {% empty %}
+
+                        <p>
+                            No recent activity.
+                        </p>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
